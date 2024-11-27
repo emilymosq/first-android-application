@@ -45,33 +45,36 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Ingresa una contraseña.", Toast.LENGTH_SHORT).show();
                 }
 
-            SharedPreferences sharedPreferences = getSharedPreferences("Usuario", MODE_PRIVATE);
-            String savedUser = sharedPreferences.getString("username", null);
-            String savedPassword = sharedPreferences.getString("password", null);
+                SharedPreferences sharedPreferences = getSharedPreferences("Usuario", MODE_PRIVATE);
+                String savedUser = sharedPreferences.getString("username", null);
+                String savedPassword = sharedPreferences.getString("password", null);
 
-                if(username.equals(savedUser) && userpassword.equals(savedPassword)){
+                if (username.equals(savedUser) && userpassword.equals(savedPassword)) {
                     launchMain();
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Datos incorrectos", Toast.LENGTH_SHORT).show();
+                }
+
+
+                loginRegisterText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        launchRegister();
+                    }
+                });
             }
 
+            public void launchMain() {
+                Intent intent = new Intent(Login.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
 
-            loginRegisterText.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view){
-                    launchRegister();
-                }
-            });
-        }
-
-        public void launchMain(){
-            Intent intent = new Intent(Login.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-        public void launchRegister(){
-            Intent intent = new Intent(Login.this, Register.class);
-            startActivity(intent);
-        }
+            public void launchRegister() {
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
+            }
+        });
+    }
 }
